@@ -22,6 +22,18 @@ Minimalne API z dwoma endpointami:
    npm run start:dev
    ```
 
+## Testowanie API
+
+### Pobranie listy użytkowników
+```bash
+curl http://localhost:3000/api/users
+```
+
+### Dodanie nowego użytkownika
+```bash
+curl -X POST http://localhost:3000/api/users   -H "Content-Type: application/json"   -d '{"name":"Jan Kowalski", "email":"jan@example.com"}'
+```
+
 ## Struktura projektu
 - `src/` — kod źródłowy aplikacji
 - `config/` — konfiguracja (TypeORM, .env)
