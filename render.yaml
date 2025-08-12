@@ -1,0 +1,35 @@
+services:
+  - type: web 
+    name: nest-users-api
+    env: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: node dist/main.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: '3000'
+      - key: DB_HOST
+        fromDatabase:
+          name: nest-users-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: nest-users-db
+          property: port
+      - key: DB_USER
+        fromDatabase:
+          name: nest-users-db
+          property: user
+      - key: DB_PASS
+        fromDatabase:
+          name: nest-users-db"
+          property: password
+      - key: DB_NAME
+        fromDatabase:
+          name: nest-users-db
+          property: database
+databases:
+  - name: nest-users-db
+    plan: free
