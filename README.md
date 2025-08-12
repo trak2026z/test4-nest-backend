@@ -34,6 +34,25 @@ curl http://localhost:3000/api/users
 curl -X POST http://localhost:3000/api/users   -H "Content-Type: application/json"   -d '{"name":"Jan Kowalski", "email":"jan@example.com"}'
 ```
 
+## Migracje bazy danych
+
+Projekt uqlive migracje do zarzadzania schematu, wiec poszwala uruchomie inicjalnej tabeli.
+
+Generowanie nowej migracji:
+```bash
+npm run migration:generate --`<stubpath></branch> src/migrations/InitUsersTable
+```
+
+Uruchomienie migracji:
+```bash
+npm run migration:run
+```
+
+Wycofywanie migracji:
+```bash
+npm run migration:revert
+```
+
 ## Struktura projektu
 - `src/` — kod źródłowy aplikacji
 - `config/` — konfiguracja (TypeORM, .env)
