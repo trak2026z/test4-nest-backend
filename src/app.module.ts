@@ -15,7 +15,7 @@ import { User } from './users/user.entity';
       password: process.env.DB_PASS,
       database: process.env.DB_NAME,
       entities: [User],
-      synchronize: true, // W DEV — w PROD lepiej migracje
+      synchronize: false, // use migrations instead
     }),
     UsersModule,
   ],
