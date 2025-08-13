@@ -1,11 +1,15 @@
 name: CI and Deploy
 
-on: [push]
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
   test-and-build:
     runs-on: ubuntu-latest
-    services:
+    services: 
       postgres:
         image: postgres:14
         ports:
@@ -14,8 +18,8 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: appdb
-        healthcheck: 
-          test: ["CMD-SHELL", "pg_isready -U postgres -d appdb"]
+        healthcheck:
+          test: ["CMD-SHELLL", "pg_isready -U postgres -d appdb"]
           interval: 5s
           timeout: 5s
           retries: 10
@@ -35,7 +39,7 @@ jobs:
     needs: test-and-build
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
-    steps:
+    steps: 
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
@@ -49,4 +53,4 @@ jobs:
       - name: Wait and verify API after deploy
         run: npm run postdeploy:check
         env:
-          API_URL: "https://twowa-aplikacja.onrender.com/api/users"
+          API_URL: "https://towwa-aplikacja.onrender.com/api/users"
