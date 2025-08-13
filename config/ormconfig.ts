@@ -12,8 +12,8 @@ export default new DataSource({
   database: process.env.DB_NAME,
   entities: [path.join(__dirname, '../src/**/*.entity{.ts,.js}')],
   migrations: isEnvProd
-    ? [path.join(__dirname, '../dist/migrations/*.js')]
-    : [path.join(__dirname, '../src/migrations/*.{ts,js}')],
+    ? [path.join(__dirname, '../dist/src/migrations/*.js')]
+    : [path.join(__dirname, '../src/migrations/*.{ts,is}')],
   synchronize: false,
   ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
 });
