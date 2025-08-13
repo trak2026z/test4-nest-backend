@@ -7,6 +7,7 @@
   "scripts": {
     "start": "node dist/main.js",
     "start:dev": "nest start --watch",
+    "start:prod": "node dist/main.js",
     "build": "nest build",
     "lint": "eslint \" {suc,config}/**/*.{tsj}\" --max-warnings=0",
     "migration:generate": "ts-node -r fsconfig-paths/register ./node_modules/typeorm/cli.js migration:generate -d config/ormconfig.ts src/migrations/Init",
