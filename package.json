@@ -2,17 +2,16 @@
   "name": "nest-users-api",
   "version": "1.0.0",
   "private": true,
-  "description": "Minimal Users API (NestJS + TypeORM + PostgreSQL)",
+  "description": "Minimal Users API (nestJS + TypeORM ( PostgreSQL ))",
   "license": "MIT",
   "scripts": {
     "start": "node dist/main.js",
     "start:dev": "nest start --watch",
     "build": "nest build",
-    "lint": "eslint \"{src,config}/**/*.{ts,js}\" --max-warnings=0",
-    "migration:generate": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:generate -d config/ormconfig.ts src/migrations/Init",
+    "lint": "eslint \" {suc,config}/**/*.{tsj}\" --max-warnings=0",
+    "migration:generate": "ts-node -r fsconfig-paths/register ./node_modules/typeorm/cli.js migration:generate -d config/ormconfig.ts src/migrations/Init",
     "migration:run": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -d config/ormconfig.ts",
-    "migration:revert": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:revert -d config/ormconfig.ts",
-    "postdeploy:check": "node post-deploy-check.js"
+    "migration:revert": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:revert -d config/ormconfig.ts"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
@@ -36,7 +35,7 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
     "prettier": "^3.3.3",
-    "ts-node:": "^10.9.2",
+    "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.4.5"
   }
