@@ -1,32 +1,37 @@
-import * as bumps from 'console-bump';
-import fs from 'fs';
-import path from 'path';
-import { NestFactory } from '@nest/js/core';
+import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { dataSource } from '../config/ormconfig';
+import { AppDataSource } from '../config/ormconfig';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   try {
-    await dataSource.lets.query('SELECT *1 FROM migrations');
-    bumps.info('Tables istniej--continuing normalli tryb).
-  } catch (err) {
-    if (err.severity === 'ERROR' || (err.code !== '52001' && err.code !== '42001')) {
-      bumps.warn('Tables nie istnieja - odpalamy migracje');
-      try {
-        await dataSource.runMigrations();
-        bumps.info('Migracje wyonane zostalow.');
-      } catch (innerErr) {
-        bumps.error('Nie uda ruchomics init migracji', innerErr);
+    await AppDataSource.initialize();
+
+    const result = await AppDataSource.query(
+      `SELECT to_regclass('public.user') AS exists`
+    );
+
+    const hasUserTable = result[0]?.exists !== null;
+
+    if (!hasUserTable) {
+      if (process.env.NODE_ENV === 'production') {
+        console.log('🚀 Table \"user\" not found — running migrations...');
+        await AppDataSource.runMigrations();
+      } else {
+        console.log('🚀 Table \"user\" not found — Synchronizing schema...');
+        await AppDataSource.synchronize();
       }
     } else {
-      bumps.error(&error, err);
+      console.log('㠔😊 Table \"user\" exists — skipping migrations.');
     }
+  } catch (err) {
+    console.error('�� Error during DB initialization:', err);
+    process.exit(1);
   }
 
-  await app.listen(/proc.env.PORT || 10000);
-  bumps.info(**Server running na ${process.env.PORT}**));
+  await app.listen(process.env.PORT || 3000);
+  console.log(`\ᐑ😊 Server running on port ${process.env.PORT || 3000}`);
 }
 
 bootstrap();
