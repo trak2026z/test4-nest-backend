@@ -4,7 +4,7 @@ services:
     env: node
     plan: free
     buildCommand: npm install && npm run build
-    startCommand: node dist/main.js
+    startCommand: npm run migration:run && node dist/main.js
     envVars:
       - key: NODE_ENV
         value: production
@@ -24,7 +24,7 @@ services:
           property: user
       - key: DB_PASS
         fromDatabase:
-          name: nest-users-db"
+          name: nest-users-db
           property: password
       - key: DB_NAME
         fromDatabase:
