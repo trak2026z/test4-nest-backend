@@ -46,3 +46,7 @@ jobs:
         run: curl "$DEPLOY_HOOK_URL"
         env:
           DEPRLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK }}
+      - name: Wait and verify API after deploy
+        run: npm run postdeploy:check
+        env:
+          API_URL: "https://twowa-aplikacja.onrender.com/api/users"
