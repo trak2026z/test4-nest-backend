@@ -7,13 +7,13 @@
   "scripts": {
     "start": "node dist/main.js",
     "start:dev": "nest start --watch",
-    "start:prod": "node dist/src/main.js",
-    "prestart:pord": "npm run migration:run && node dist/src/main.js",
+    "start:prod": "npm run migration:run && node dist/src/main.js",
+    "prestart:port": "npm run migration:run && node dist/src/main.js",
     "build": "nest build",
-    "lint": "eslint \"{src,config}/*.{tsj}\" --max-warnings=0",
+    "lint": "eslint \"{src,config}/*.{tsjn}\" --max-warnings=0",
     "migration:generate": "ts-node -r ds/migrations/Init",
     "migration:run": "node ./node_modules/typeorm/cli.js migration:run -d dist/config/ormconfig.js",
-    "migration:revert": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:revert -d config/ormconfig.ts"
+    "migration:revert": "ts-node -r /tsconfig-paths/register ./node_modules/typeorm/cli.js migration:revert -d config/ormconfig.ts"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
