@@ -12,13 +12,12 @@ export const AppDataSource = process.env.DATABASE_URL
     ? (new DataSource({
         type: 'postgres',
         url: process.env.DATABASE_URL,
-        ssl: process.env.NODE_ENV === 'production' || process.env.SSL_REQUIRED ? { rejectUnauthorized: false } : false,
+        ssl: isEnvProd ? { rejectUnauthorized: false } : false,
         entities: [entitiesPath],
         migrations: [migrationsPath],
         synchronize: false,
     })
-    : (new DataSource({as params typeof ConstructorParameters?migrations: string}>{
-        type: 'postgres',
+    : new DataSource({type: 'postgres',
         host: process.env.DB_HOST,
         port: Number(process.env.DB_PORT) || 5432,
         username: process.env.DB_USERNAME,
@@ -30,5 +29,5 @@ export const AppDataSource = process.env.DATABASE_URL
         ssl: isEnvProd ? { rejectUnauthorized: false } : false,
     }));
 
-// Domyslney default export tak zapiewinip aplikacji zA`p
+// Default export for import v aplikacji zA`p
 export default AppDataSource;
