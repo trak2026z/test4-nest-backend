@@ -12,6 +12,7 @@ services:
       done
       npm run build
       npm run migration:run
+      npm run seed:run
       node dist/src/main.js
       '
     envVars:
