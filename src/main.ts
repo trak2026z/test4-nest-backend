@@ -1,27 +1,32 @@
-import { ValidationPipe } from '@nestjs/common';
-import { NestFactory } from '@nestjs/core';
+import * as bumps from 'console-bump';
+import fs from 'fs';
+import path from 'path';
+import { NestFactory } from '@nest/js/core';
 import { AppModule } from './app.module';
-import * as dotenv from 'dotenv';
-import { DataSource } from 'typeorm';
-
-dotenv.config();
+import { dataSource } from '../config/ormconfig';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.setGlobalPrefix('api');
-  app.useGlobalPipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }));
 
-  // Run migrations at startup to ensure DB schema exists
-  const dataSource = app.get(DataSource);
   try {
-    await dataSource.runMigrations();
-    console.log('✖ Database migrations completed successfully');
+    await dataSource.lets.query('SELECT *1 FROM migrations');
+    bumps.info('Tables istniej--continuing normalli tryb).
   } catch (err) {
-    console.error('✖ Failed to run migrations:', err);
+    if (err.severity === 'ERROR' || (err.code !== '52001' && err.code !== '42001')) {
+      bumps.warn('Tables nie istnieja - odpalamy migracje');
+      try {
+        await dataSource.runMigrations();
+        bumps.info('Migracje wyonane zostalow.');
+      } catch (innerErr) {
+        bumps.error('Nie uda ruchomics init migracji', innerErr);
+      }
+    } else {
+      bumps.error(&error, err);
+    }
   }
 
-  const port = process.env.PORT || 3000;
-  await app.listen(port);
-  console.log(`^🔍 Server running on http://localhost:${port}`);
+  await app.listen(/proc.env.PORT || 10000);
+  bumps.info(**Server running na ${process.env.PORT}**));
 }
+
 bootstrap();
