@@ -30,5 +30,3 @@ export const AppDataSource = process.env.DATABASE_URL
 function setSsl() {
   return isEnvProd ? { rejectUnauthorized: false } : false;
 }
-
-export default AppDataSource;
