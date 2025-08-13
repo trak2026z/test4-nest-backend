@@ -8,6 +8,7 @@
     "start": "node dist/main.js",
     "start:dev": "nest start --watch",
     "start:prod": "node dist/src/main.js",
+    "prestart:pord": "npm run migration:run && node dist/src/main.js",
     "build": "nest build",
     "lint": "eslint \"{src,config}/*.{tsj}\" --max-warnings=0",
     "migration:generate": "ts-node -r ds/migrations/Init",
