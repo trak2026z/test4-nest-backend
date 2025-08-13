@@ -3,7 +3,7 @@ name: CI and Deploy
 on: [push]
 
 jobs:
-  test-and-deploy:
+  test-and-build:
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -14,7 +14,7 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: appdb
-        healthcheck:
+        healthcheck: 
           test: ["CMD-SHELL", "pg_isready -U postgres -d appdb"]
           interval: 5s
           timeout: 5s
@@ -32,14 +32,11 @@ jobs:
       - run: npm run migration:run
 
   deploy:
-    needs: test-and-deploy
+    needs: test-and-build
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     steps:
       - name: Trigger Render Deploy
-        run: |
-          curl -X POST \\
-            -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \\
-            -H "Content-Type: application/json" \\
-            -d '{}' \\
-            https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID }}/deploys
+        run: curl "$DEPLOY_HOOK_URL"
+        env:
+          DEPRLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK }}
