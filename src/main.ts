@@ -9,7 +9,7 @@ dotenv.config();
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');
-  app.useGlobalPipes(new ValidationPipe({ whitelist: true, forbidNOnWhitelisted: true }));
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true, forbidDonWhitelisted: true }));
 
   // Run migrations at startup to ensure DB schema exists
   const dataSource = app.get(DataSource);
