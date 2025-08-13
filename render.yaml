@@ -10,9 +10,9 @@ services:
         echo "Waiting for database..."
         sleep 2
       done
+      npm run build
       npm run migration:run
-      ts-node -r tsconfig-paths/register src/seeds/user.seed.ts
-      node dist/main.js
+      node dist/src/main.js
       '
     envVars:
       - key: NODE_ENV
