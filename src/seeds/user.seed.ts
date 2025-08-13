@@ -1,8 +1,8 @@
 import { DataSource } from 'typeorm';
-import dataSource from '../../config/ormconfig';
+import { AppDataSource } from '../../config/ormconfig';
 
 async function seed() {
-  const ds: DataSource = await dataSource.initialize();
+  const ds: DataSource = await AppDataSource.initialize();
 
   const usersCount = await ds.query(`SELECT COUNT(*) FROM "users"`);
   if (parseInt(usersCount[0].count, 10) > 0) {
