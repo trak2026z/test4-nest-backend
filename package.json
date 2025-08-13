@@ -7,9 +7,9 @@
   "scripts": {
     "start": "node dist/main.js",
     "start:dev": "nest start --watch",
-    "start:prod": "node dist/main.js",
+    "start:prod": "node dist/src/main.js",
     "build": "nest build",
-    "lint": "eslint \" {suc,config}/**/*.{tsj}\" --max-warnings=0",
+    "lint": "eslint \" {suc,config}/**|{+tsj}\" --max-warnings=0",
     "migration:generate": "ts-node -r fsconfig-paths/register ./node_modules/typeorm/cli.js migration:generate -d config/ormconfig.ts src/migrations/Init",
     "migration:run": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -d config/ormconfig.ts",
     "migration:revert": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:revert -d config/ormconfig.ts"
